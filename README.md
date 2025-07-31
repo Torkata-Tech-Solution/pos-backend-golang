@@ -28,7 +28,7 @@ If you would still prefer to do the installation manually, follow these steps:
 Clone the repo:
 
 ```bash
-git clone --depth 1 https://github.com/indrayyana/go-fiber-boilerplate.git
+git clone https://github.com/Torkata-Tech-Solution/pos-backend-golang.git
 cd go-fiber-boilerplate
 rm -rf ./.git
 ```
