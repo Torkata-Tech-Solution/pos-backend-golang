@@ -9,9 +9,9 @@ tmp_dir = "tmp"
 # Add additional arguments when running binary (bin/full_bin).
 args_bin = []
 # Binary file yields from `cmd`. change binary to `main.exe` if you using windows
-bin = "./tmp/main"
+bin = "./tmp/main.exe"
 # Just plain old shell command. You could use `make` as well. change binary to `main.exe` if you using windows
-cmd = "go build -race -o ./tmp/main ./src"
+cmd = "go build -race -o ./tmp/main.exe ./src"
 # It's not necessary to trigger build each time file changes if it's too frequent.
 delay = 1000 # ms
 # Ignore these filename extensions or directories.
