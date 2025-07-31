@@ -1,0 +1,932 @@
+basePath: /v1
+definitions:
+  example.CreateUserResponse:
+    properties:
+      code:
+        example: 201
+        type: integer
+      message:
+        example: Create user successfully
+        type: string
+      status:
+        example: success
+        type: string
+      user:
+        $ref: '#/definitions/example.User'
+    type: object
+  example.DeleteUserResponse:
+    properties:
+      code:
+        example: 200
+        type: integer
+      message:
+        example: Delete user successfully
+        type: string
+      status:
+        example: success
+        type: string
+    type: object
+  example.DuplicateEmail:
+    properties:
+      code:
+        example: 409
+        type: integer
+      message:
+        example: Email already taken
+        type: string
+      status:
+        example: error
+        type: string
+    type: object
+  example.FailedLogin:
+    properties:
+      code:
+        example: 401
+        type: integer
+      message:
+        example: Invalid email or password
+        type: string
+      status:
+        example: error
+        type: string
+    type: object
+  example.FailedResetPassword:
+    properties:
+      code:
+        example: 401
+        type: integer
+      message:
+        example: Password reset failed
+        type: string
+      status:
+        example: error
+        type: string
+    type: object
+  example.FailedVerifyEmail:
+    properties:
+      code:
+        example: 401
+        type: integer
+      message:
+        example: Verify email failed
+        type: string
+      status:
+        example: error
+        type: string
+    type: object
+  example.Forbidden:
+    properties:
+      code:
+        example: 403
+        type: integer
+      message:
+        example: You don't have permission to access this resource
+        type: string
+      status:
+        example: error
+        type: string
+    type: object
+  example.ForgotPasswordResponse:
+    properties:
+      code:
+        example: 200
+        type: integer
+      message:
+        example: A password reset link has been sent to your email address.
+        type: string
+      status:
+        example: success
+        type: string
+    type: object
+  example.GetAllUserResponse:
+    properties:
+      code:
+        example: 200
+        type: integer
+      limit:
+        example: 10
+        type: integer
+      message:
+        example: Get all users successfully
+        type: string
+      page:
+        example: 1
+        type: integer
+      results:
+        items:
+          $ref: '#/definitions/example.User'
+        type: array
+      status:
+        example: success
+        type: string
+      total_pages:
+        example: 1
+        type: integer
+      total_results:
+        example: 1
+        type: integer
+    type: object
+  example.GetUserResponse:
+    properties:
+      code:
+        example: 200
+        type: integer
+      message:
+        example: Get user successfully
+        type: string
+      status:
+        example: success
+        type: string
+      user:
+        $ref: '#/definitions/example.User'
+    type: object
+  example.GoogleLoginResponse:
+    properties:
+      code:
+        example: 200
+        type: integer
+      message:
+        example: Login successfully
+        type: string
+      status:
+        example: success
+        type: string
+      tokens:
+        $ref: '#/definitions/example.Tokens'
+      user:
+        $ref: '#/definitions/example.GoogleUser'
+    type: object
+  example.GoogleUser:
+    properties:
+      email:
+        example: fake@example.com
+        type: string
+      id:
+        example: e088d183-9eea-4a11-8d5d-74d7ec91bdf5
+        type: string
+      name:
+        example: fake name
+        type: string
+      role:
+        example: user
+        type: string
+      verified_email:
+        example: true
+        type: boolean
+    type: object
+  example.HealthCheck:
+    properties:
+      is_up:
+        example: true
+        type: boolean
+      name:
+        example: Postgre
+        type: string
+      status:
+        example: Up
+        type: string
+    type: object
+  example.HealthCheckError:
+    properties:
+      is_up:
+        example: false
+        type: boolean
+      message:
+        example: 'failed to connect to ''host=localhost user=postgres database=wrongdb'':
+          server error (FATAL: database "wrongdb" does not exist (SQLSTATE 3D000))'
+        type: string
+      name:
+        example: Postgre
+        type: string
+      status:
+        example: Down
+        type: string
+    type: object
+  example.HealthCheckResponse:
+    properties:
+      code:
+        example: 200
+        type: integer
+      is_healthy:
+        example: true
+        type: boolean
+      message:
+        example: Health check completed
+        type: string
+      result:
+        items:
+          $ref: '#/definitions/example.HealthCheck'
+        type: array
+      status:
+        example: success
+        type: string
+    type: object
+  example.HealthCheckResponseError:
+    properties:
+      code:
+        example: 500
+        type: integer
+      is_healthy:
+        example: false
+        type: boolean
+      message:
+        example: Health check completed
+        type: string
+      result:
+        items:
+          $ref: '#/definitions/example.HealthCheckError'
+        type: array
+      status:
+        example: error
+        type: string
+    type: object
+  example.LoginResponse:
+    properties:
+      code:
+        example: 200
+        type: integer
+      message:
+        example: Login successfully
+        type: string
+      status:
+        example: success
+        type: string
+      tokens:
+        $ref: '#/definitions/example.Tokens'
+      user:
+        $ref: '#/definitions/example.User'
+    type: object
+  example.LogoutResponse:
+    properties:
+      code:
+        example: 200
+        type: integer
+      message:
+        example: Logout successfully
+        type: string
+      status:
+        example: success
+        type: string
+    type: object
+  example.NotFound:
+    properties:
+      code:
+        example: 404
+        type: integer
+      message:
+        example: Not found
+        type: string
+      status:
+        example: error
+        type: string
+    type: object
+  example.RefreshToken:
+    properties:
+      refresh_token:
+        example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI1ZWJhYzUzNDk1NGI1NDEzOTgwNmMxMTIiLCJpYXQiOjE1ODkyOTg0ODQsImV4cCI6MTU4OTMwMDI4NH0.m1U63blB0MLej_WfB7yC2FTMnCziif9X8yzwDEfJXAg
+        type: string
+    type: object
+  example.RefreshTokenResponse:
+    properties:
+      code:
+        example: 200
+        type: integer
+      status:
+        example: success
+        type: string
+      tokens:
+        $ref: '#/definitions/example.Tokens'
+    type: object
+  example.RegisterResponse:
+    properties:
+      code:
+        example: 201
+        type: integer
+      message:
+        example: Register successfully
+        type: string
+      status:
+        example: success
+        type: string
+      tokens:
+        $ref: '#/definitions/example.Tokens'
+      user:
+        $ref: '#/definitions/example.User'
+    type: object
+  example.ResetPasswordResponse:
+    properties:
+      code:
+        example: 200
+        type: integer
+      message:
+        example: Update password successfully
+        type: string
+      status:
+        example: success
+        type: string
+    type: object
+  example.SendVerificationEmailResponse:
+    properties:
+      code:
+        example: 200
+        type: integer
+      message:
+        example: Please check your email for a link to verify your account
+        type: string
+      status:
+        example: success
+        type: string
+    type: object
+  example.TokenExpires:
+    properties:
+      expires:
+        example: "2024-10-07T11:56:46.618180553Z"
+        type: string
+      token:
+        example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI1ZWJhYzUzNDk1NGI1NDEzOTgwNmMxMTIiLCJpYXQiOjE1ODkyOTg0ODQsImV4cCI6MTU4OTMwMDI4NH0.m1U63blB0MLej_WfB7yC2FTMnCziif9X8yzwDEfJXAg
+        type: string
+    type: object
+  example.Tokens:
+    properties:
+      access:
+        $ref: '#/definitions/example.TokenExpires'
+      refresh:
+        $ref: '#/definitions/example.TokenExpires'
+    type: object
+  example.Unauthorized:
+    properties:
+      code:
+        example: 401
+        type: integer
+      message:
+        example: Please authenticate
+        type: string
+      status:
+        example: error
+        type: string
+    type: object
+  example.UpdateUserResponse:
+    properties:
+      code:
+        example: 200
+        type: integer
+      message:
+        example: Update user successfully
+        type: string
+      status:
+        example: success
+        type: string
+      user:
+        $ref: '#/definitions/example.User'
+    type: object
+  example.User:
+    properties:
+      email:
+        example: fake@example.com
+        type: string
+      id:
+        example: e088d183-9eea-4a11-8d5d-74d7ec91bdf5
+        type: string
+      name:
+        example: fake name
+        type: string
+      role:
+        example: user
+        type: string
+      verified_email:
+        example: false
+        type: boolean
+    type: object
+  example.VerifyEmailResponse:
+    properties:
+      code:
+        example: 200
+        type: integer
+      message:
+        example: Verify email successfully
+        type: string
+      status:
+        example: success
+        type: string
+    type: object
+  validation.CreateUser:
+    properties:
+      email:
+        example: fake@example.com
+        maxLength: 50
+        type: string
+      name:
+        example: fake name
+        maxLength: 50
+        type: string
+      password:
+        example: password1
+        maxLength: 20
+        minLength: 8
+        type: string
+      role:
+        enum:
+        - user
+        - admin
+        example: user
+        maxLength: 50
+        type: string
+    required:
+    - email
+    - name
+    - password
+    - role
+    type: object
+  validation.ForgotPassword:
+    properties:
+      email:
+        example: fake@example.com
+        maxLength: 50
+        type: string
+    required:
+    - email
+    type: object
+  validation.Login:
+    properties:
+      email:
+        example: fake@example.com
+        maxLength: 50
+        type: string
+      password:
+        example: password1
+        maxLength: 20
+        minLength: 8
+        type: string
+    required:
+    - email
+    - password
+    type: object
+  validation.Register:
+    properties:
+      email:
+        example: fake@example.com
+        maxLength: 50
+        type: string
+      name:
+        example: fake name
+        maxLength: 50
+        type: string
+      password:
+        example: password1
+        maxLength: 20
+        minLength: 8
+        type: string
+    required:
+    - email
+    - name
+    - password
+    type: object
+  validation.UpdatePassOrVerify:
+    properties:
+      password:
+        example: password1
+        maxLength: 20
+        minLength: 8
+        type: string
+    type: object
+  validation.UpdateUser:
+    properties:
+      email:
+        example: fake@example.com
+        maxLength: 50
+        type: string
+      name:
+        example: fake name
+        maxLength: 50
+        type: string
+      password:
+        example: password1
+        maxLength: 20
+        minLength: 8
+        type: string
+    type: object
+host: localhost:3000
+info:
+  contact: {}
+  license:
+    name: MIT
+    url: https://github.com/indrayyana/go-fiber-boilerplate/blob/main/LICENSE
+  title: go-fiber-boilerplate API documentation
+  version: 1.0.0
+paths:
+  /auth/forgot-password:
+    post:
+      consumes:
+      - application/json
+      description: An email will be sent to reset password.
+      parameters:
+      - description: Request body
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/validation.ForgotPassword'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/example.ForgotPasswordResponse'
+        "404":
+          description: Not found
+          schema:
+            $ref: '#/definitions/example.NotFound'
+      summary: Forgot password
+      tags:
+      - Auth
+  /auth/google:
+    get:
+      description: This route initiates the Google OAuth2 login flow. Please try this
+        in your browser.
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/example.GoogleLoginResponse'
+      summary: Login with google
+      tags:
+      - Auth
+  /auth/login:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: Request body
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/validation.Login'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/example.LoginResponse'
+        "401":
+          description: Invalid email or password
+          schema:
+            $ref: '#/definitions/example.FailedLogin'
+      summary: Login
+      tags:
+      - Auth
+  /auth/logout:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: Request body
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/example.RefreshToken'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/example.LogoutResponse'
+        "404":
+          description: Not found
+          schema:
+            $ref: '#/definitions/example.NotFound'
+      summary: Logout
+      tags:
+      - Auth
+  /auth/refresh-tokens:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: Request body
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/example.RefreshToken'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/example.RefreshTokenResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/example.Unauthorized'
+      summary: Refresh auth tokens
+      tags:
+      - Auth
+  /auth/register:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: Request body
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/validation.Register'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/example.RegisterResponse'
+        "409":
+          description: Email already taken
+          schema:
+            $ref: '#/definitions/example.DuplicateEmail'
+      summary: Register as user
+      tags:
+      - Auth
+  /auth/reset-password:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: The reset password token
+        in: query
+        name: token
+        required: true
+        type: string
+      - description: Request body
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/validation.UpdatePassOrVerify'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/example.ResetPasswordResponse'
+        "401":
+          description: Password reset failed
+          schema:
+            $ref: '#/definitions/example.FailedResetPassword'
+      summary: Reset password
+      tags:
+      - Auth
+  /auth/send-verification-email:
+    post:
+      description: An email will be sent to verify email.
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/example.SendVerificationEmailResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/example.Unauthorized'
+      security:
+      - BearerAuth: []
+      summary: Send verification email
+      tags:
+      - Auth
+  /auth/verify-email:
+    post:
+      parameters:
+      - description: The verify email token
+        in: query
+        name: token
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/example.VerifyEmailResponse'
+        "401":
+          description: Verify email failed
+          schema:
+            $ref: '#/definitions/example.FailedVerifyEmail'
+      summary: Verify email
+      tags:
+      - Auth
+  /health-check:
+    get:
+      consumes:
+      - application/json
+      description: Check the status of services and database connections
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/example.HealthCheckResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/example.HealthCheckResponseError'
+      summary: Health Check
+      tags:
+      - Health
+  /users:
+    get:
+      description: Only admins can retrieve all users.
+      parameters:
+      - default: 1
+        description: Page number
+        in: query
+        name: page
+        type: integer
+      - default: 10
+        description: Maximum number of users
+        in: query
+        name: limit
+        type: integer
+      - description: Search by name or email or role
+        in: query
+        name: search
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/example.GetAllUserResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/example.Unauthorized'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/example.Forbidden'
+      security:
+      - BearerAuth: []
+      summary: Get all users
+      tags:
+      - Users
+    post:
+      description: Only admins can create other users.
+      parameters:
+      - description: Request body
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/validation.CreateUser'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/example.CreateUserResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/example.Unauthorized'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/example.Forbidden'
+        "409":
+          description: Email already taken
+          schema:
+            $ref: '#/definitions/example.DuplicateEmail'
+      security:
+      - BearerAuth: []
+      summary: Create a user
+      tags:
+      - Users
+  /users/{id}:
+    delete:
+      description: Logged in users can delete only themselves. Only admins can delete
+        other users.
+      parameters:
+      - description: User id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/example.DeleteUserResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/example.Unauthorized'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/example.Forbidden'
+        "404":
+          description: Not found
+          schema:
+            $ref: '#/definitions/example.NotFound'
+      security:
+      - BearerAuth: []
+      summary: Delete a user
+      tags:
+      - Users
+    get:
+      description: Logged in users can fetch only their own user information. Only
+        admins can fetch other users.
+      parameters:
+      - description: User id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/example.GetUserResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/example.Unauthorized'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/example.Forbidden'
+        "404":
+          description: Not found
+          schema:
+            $ref: '#/definitions/example.NotFound'
+      security:
+      - BearerAuth: []
+      summary: Get a user
+      tags:
+      - Users
+    patch:
+      description: Logged in users can only update their own information. Only admins
+        can update other users.
+      parameters:
+      - description: User id
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Request body
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/validation.UpdateUser'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/example.UpdateUserResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/example.Unauthorized'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/example.Forbidden'
+        "404":
+          description: Not found
+          schema:
+            $ref: '#/definitions/example.NotFound'
+        "409":
+          description: Email already taken
+          schema:
+            $ref: '#/definitions/example.DuplicateEmail'
+      security:
+      - BearerAuth: []
+      summary: Update a user
+      tags:
+      - Users
+securityDefinitions:
+  BearerAuth:
+    description: 'Example Value: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...'
+    in: header
+    name: Authorization
+    type: apiKey
+swagger: "2.0"
