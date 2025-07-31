@@ -343,4 +343,4 @@ issues:
         - noctx
         - wrapcheck
         - lll
-        - testpackage
+        - testpackagegit
