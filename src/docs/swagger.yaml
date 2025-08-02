@@ -409,6 +409,99 @@ definitions:
         example: success
         type: string
     type: object
+  model.Business:
+    properties:
+      address:
+        type: string
+      domain:
+        type: string
+      email:
+        type: string
+      id:
+        type: string
+      logo:
+        type: string
+      name:
+        type: string
+      phone:
+        type: string
+      website:
+        type: string
+    type: object
+  response.Common:
+    properties:
+      code:
+        type: integer
+      message:
+        type: string
+      status:
+        type: string
+    type: object
+  response.ErrorDetails:
+    properties:
+      code:
+        type: integer
+      errors: {}
+      message:
+        type: string
+      status:
+        type: string
+    type: object
+  response.SuccessWithBusiness:
+    properties:
+      business:
+        $ref: '#/definitions/model.Business'
+      code:
+        type: integer
+      message:
+        type: string
+      status:
+        type: string
+    type: object
+  response.SuccessWithPaginate-model_Business:
+    properties:
+      code:
+        type: integer
+      limit:
+        type: integer
+      message:
+        type: string
+      page:
+        type: integer
+      results:
+        items:
+          $ref: '#/definitions/model.Business'
+        type: array
+      status:
+        type: string
+      total_pages:
+        type: integer
+      total_results:
+        type: integer
+    type: object
+  validation.CreateBusiness:
+    properties:
+      address:
+        type: string
+      domain:
+        type: string
+      email:
+        type: string
+      logo:
+        type: string
+      name:
+        type: string
+      phone:
+        type: string
+      website:
+        type: string
+    required:
+    - address
+    - domain
+    - email
+    - name
+    - phone
+    type: object
   validation.CreateUser:
     properties:
       email:
@@ -480,6 +573,21 @@ definitions:
     - email
     - name
     - password
+    type: object
+  validation.UpdateBusiness:
+    properties:
+      address:
+        type: string
+      email:
+        type: string
+      logo:
+        type: string
+      name:
+        type: string
+      phone:
+        type: string
+      website:
+        type: string
     type: object
   validation.UpdatePassOrVerify:
     properties:
@@ -723,6 +831,208 @@ paths:
       summary: Verify email
       tags:
       - Auth
+  /businesses:
+    get:
+      description: Get all businesses with pagination and search functionality
+      parameters:
+      - default: 1
+        description: Page number
+        in: query
+        name: page
+        type: integer
+      - default: 10
+        description: Maximum number of businesses
+        in: query
+        name: limit
+        type: integer
+      - description: Search by name or address
+        in: query
+        name: search
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.SuccessWithPaginate-model_Business'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+      security:
+      - BearerAuth: []
+      summary: Get all businesses
+      tags:
+      - Business
+    post:
+      consumes:
+      - application/json
+      description: Create a new business
+      parameters:
+      - description: Business data
+        in: body
+        name: business
+        required: true
+        schema:
+          $ref: '#/definitions/validation.CreateBusiness'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/response.SuccessWithBusiness'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+        "409":
+          description: Business domain already exists
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+      security:
+      - BearerAuth: []
+      summary: Create new business
+      tags:
+      - Business
+  /businesses/{id}:
+    delete:
+      description: Delete a business by ID
+      parameters:
+      - description: Business ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.Common'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+        "404":
+          description: Business not found
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+      security:
+      - BearerAuth: []
+      summary: Delete business
+      tags:
+      - Business
+    get:
+      description: Get a specific business by its ID
+      parameters:
+      - description: Business ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.SuccessWithBusiness'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+        "404":
+          description: Business not found
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+      security:
+      - BearerAuth: []
+      summary: Get business by ID
+      tags:
+      - Business
+    put:
+      consumes:
+      - application/json
+      description: Update an existing business
+      parameters:
+      - description: Business ID
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Business data to update
+        in: body
+        name: business
+        required: true
+        schema:
+          $ref: '#/definitions/validation.UpdateBusiness'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.SuccessWithBusiness'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+        "404":
+          description: Business not found
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+        "409":
+          description: Business domain already exists
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+      security:
+      - BearerAuth: []
+      summary: Update business
+      tags:
+      - Business
   /health-check:
     get:
       consumes:
