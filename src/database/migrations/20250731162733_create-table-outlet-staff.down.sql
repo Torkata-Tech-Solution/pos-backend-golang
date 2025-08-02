@@ -1,0 +1,1 @@
+DROP TABLE IF EXISTS outlet_staff CASCADE;
