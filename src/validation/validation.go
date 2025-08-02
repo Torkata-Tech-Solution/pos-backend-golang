@@ -18,6 +18,8 @@ var customMessages = map[string]string{
 	"alphanum": "Field %s must contain only alphanumeric characters",
 	"oneof":    "Invalid value for field %s",
 	"password": "Field %s must contain at least 1 letter and 1 number",
+	"unique":   "Field %s must be unique",
+	"url":      "Field %s must be a valid URL",
 }
 
 func CustomErrorMessages(err error) map[string]string {

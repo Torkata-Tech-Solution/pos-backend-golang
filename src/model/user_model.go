@@ -9,8 +9,10 @@ import (
 
 type User struct {
 	ID            uuid.UUID `gorm:"primaryKey;not null" json:"id"`
+	Photo         string    `gorm:"default:null" json:"photo"`
 	Name          string    `gorm:"not null" json:"name"`
 	Email         string    `gorm:"uniqueIndex;not null" json:"email"`
+	Phone         string    `gorm:"not null" json:"phone"`
 	Password      string    `gorm:"not null" json:"-"`
 	Role          string    `gorm:"default:user;not null" json:"role"`
 	VerifiedEmail bool      `gorm:"default:false;not null" json:"verified_email"`
