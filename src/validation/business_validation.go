@@ -1,26 +1,39 @@
 package validation
 
+// Business validations
 type CreateBusiness struct {
-	Domain  string `json:"domain" validate:"required,unique"`
-	Name    string `json:"name" validate:"required"`
-	Address string `json:"address" validate:"required"`
-	Phone   string `json:"phone" validate:"required"`
-	Email   string `json:"email" validate:"required,email"`
-	Website string `json:"website" validate:"omitempty,url"`
-	Logo    string `json:"logo" validate:"omitempty,url"`
+	Domain  string `json:"domain" validate:"required,max=255"`
+	Name    string `json:"name" validate:"required,max=255"`
+	Address string `json:"address" validate:"required,max=255"`
+	Phone   string `json:"phone" validate:"omitempty,max=20"`
+	Email   string `json:"email" validate:"omitempty,email,max=255"`
+	Website string `json:"website" validate:"omitempty,url,max=255"`
+	Logo    string `json:"logo" validate:"omitempty,url,max=255"`
 }
 
 type UpdateBusiness struct {
-	Name    string `json:"name" validate:"omitempty"`
-	Address string `json:"address" validate:"omitempty"`
-	Phone   string `json:"phone" validate:"omitempty"`
-	Email   string `json:"email" validate:"omitempty,email"`
-	Website string `json:"website" validate:"omitempty,url"`
-	Logo    string `json:"logo" validate:"omitempty,url"`
+	Name    string `json:"name" validate:"omitempty,max=255"`
+	Address string `json:"address" validate:"omitempty,max=255"`
+	Phone   string `json:"phone" validate:"omitempty,max=20"`
+	Email   string `json:"email" validate:"omitempty,email,max=255"`
+	Website string `json:"website" validate:"omitempty,url,max=255"`
+	Logo    string `json:"logo" validate:"omitempty,url,max=255"`
 }
 
-type QueryBusiness struct {
-	Page   int    `json:"page" validate:"omitempty,number,min=1"`
-	Limit  int    `json:"limit" validate:"omitempty,number,min=1"`
+// Business User validations
+type CreateBusinessUser struct {
+	BusinessID string `json:"business_id" validate:"required,uuid"`
+	UserID     string `json:"user_id" validate:"required,uuid"`
+	Role       string `json:"role" validate:"required,max=255"`
+}
+
+type UpdateBusinessUser struct {
+	Role string `json:"role" validate:"omitempty,max=255"`
+}
+
+// Common query validation
+type QueryParams struct {
+	Page   int    `json:"page" validate:"omitempty,min=1"`
+	Limit  int    `json:"limit" validate:"omitempty,min=1,max=100"`
 	Search string `json:"search" validate:"omitempty"`
 }

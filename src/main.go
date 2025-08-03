@@ -19,8 +19,12 @@ import (
 	"gorm.io/gorm"
 )
 
-// @title go-fiber-boilerplate API documentation
+// @title POS Backend API
 // @version 1.0.0
+// @description A comprehensive Point of Sale (POS) backend system built with Go and Fiber framework. This API provides endpoints for managing users, businesses, outlets, products, sales, customers, and all other POS-related operations.
+// @termsOfService http://swagger.io/terms/
+// @contact.name API Support
+// @contact.email support@example.com
 // @license.name MIT
 // @license.url https://github.com/indrayyana/go-fiber-boilerplate/blob/main/LICENSE
 // @host localhost:3000

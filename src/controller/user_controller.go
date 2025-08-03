@@ -1,7 +1,6 @@
 package controller
 
 import (
-	"app/src/model"
 	"app/src/response"
 	"app/src/service"
 	"app/src/validation"
@@ -48,7 +47,7 @@ func (u *UserController) GetUsers(c *fiber.Ctx) error {
 	}
 
 	return c.Status(fiber.StatusOK).
-		JSON(response.SuccessWithPaginate[model.User]{
+		JSON(response.SuccessWithPaginatedUsers{
 			Code:         fiber.StatusOK,
 			Status:       "success",
 			Message:      "Get all users successfully",

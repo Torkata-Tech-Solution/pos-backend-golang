@@ -2,6 +2,7 @@ package service
 
 import (
 	"app/src/model"
+	"app/src/utils"
 	"app/src/validation"
 	"errors"
 
@@ -12,7 +13,7 @@ import (
 )
 
 type BusinessService interface {
-	GetBusinesses(c *fiber.Ctx, params *validation.QueryUser) ([]model.Business, int64, error)
+	GetBusinesses(c *fiber.Ctx, params *validation.QueryParams) ([]model.Business, int64, error)
 	GetBusinessByID(c *fiber.Ctx, id string) (*model.Business, error)
 	CreateBusiness(c *fiber.Ctx, req *validation.CreateBusiness) (*model.Business, error)
 	UpdateBusiness(c *fiber.Ctx, id string, req *validation.UpdateBusiness) (*model.Business, error)
@@ -25,15 +26,15 @@ type businessService struct {
 	Validate *validator.Validate
 }
 
-func NewBusinessService(db *gorm.DB, validate *validator.Validate) *businessService {
+func NewBusinessService(db *gorm.DB, validate *validator.Validate) BusinessService {
 	return &businessService{
-		Log:      logrus.New(),
+		Log:      utils.Log,
 		DB:       db,
 		Validate: validate,
 	}
 }
 
-func (s *businessService) GetBusinesses(c *fiber.Ctx, params *validation.QueryUser) ([]model.Business, int64, error) {
+func (s *businessService) GetBusinesses(c *fiber.Ctx, params *validation.QueryParams) ([]model.Business, int64, error) {
 	var businesses []model.Business
 	var totalResults int64
 
@@ -45,7 +46,7 @@ func (s *businessService) GetBusinesses(c *fiber.Ctx, params *validation.QueryUs
 	query := s.DB.WithContext(c.Context()).Order("created_at asc")
 
 	if search := params.Search; search != "" {
-		query = query.Where("name LIKE ? OR description LIKE ?",
+		query = query.Where("name LIKE ? OR address LIKE ?",
 			"%"+search+"%", "%"+search+"%")
 	}
 

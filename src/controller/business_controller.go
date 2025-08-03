@@ -1,7 +1,6 @@
 package controller
 
 import (
-	"app/src/model"
 	"app/src/response"
 	"app/src/service"
 	"app/src/validation"
@@ -30,12 +29,12 @@ func NewBusinessController(businessService service.BusinessService) *BusinessCon
 // @Param        limit    query     int     false   "Maximum number of businesses"    default(10)
 // @Param        search   query     string  false  "Search by name or address"
 // @Router       /businesses [get]
-// @Success      200  {object}  response.SuccessWithPaginate[model.Business]
+// @Success      200  {object}  response.SuccessWithPaginatedBusinesses
 // @Failure      400  {object}  response.ErrorDetails  "Bad Request"
 // @Failure      401  {object}  response.ErrorDetails  "Unauthorized"
 // @Failure      500  {object}  response.ErrorDetails  "Internal Server Error"
 func (b *BusinessController) GetBusinesses(c *fiber.Ctx) error {
-	query := &validation.QueryUser{
+	query := &validation.QueryParams{
 		Page:   c.QueryInt("page", 1),
 		Limit:  c.QueryInt("limit", 10),
 		Search: c.Query("search", ""),
@@ -48,7 +47,7 @@ func (b *BusinessController) GetBusinesses(c *fiber.Ctx) error {
 
 	totalPages := int64(math.Ceil(float64(totalResults) / float64(query.Limit)))
 
-	return c.Status(fiber.StatusOK).JSON(response.SuccessWithPaginate[model.Business]{
+	return c.Status(fiber.StatusOK).JSON(response.SuccessWithPaginatedBusinesses{
 		Code:         fiber.StatusOK,
 		Status:       "OK",
 		Message:      "Businesses retrieved successfully",

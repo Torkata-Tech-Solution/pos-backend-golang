@@ -428,6 +428,204 @@ definitions:
       website:
         type: string
     type: object
+  model.BusinessUser:
+    properties:
+      business_id:
+        type: string
+      id:
+        type: string
+      role:
+        type: string
+      user_id:
+        type: string
+    type: object
+  model.Coupon:
+    properties:
+      code:
+        type: string
+      description:
+        type: string
+      discount_type:
+        type: string
+      discount_value:
+        type: number
+      end_date:
+        type: string
+      id:
+        type: string
+      is_active:
+        type: boolean
+      max_uses:
+        type: integer
+      outlet_id:
+        type: string
+      start_date:
+        type: string
+      used_count:
+        type: integer
+    type: object
+  model.Customer:
+    properties:
+      address:
+        type: string
+      email:
+        type: string
+      id:
+        type: string
+      loyalty_points:
+        type: integer
+      name:
+        type: string
+      outlet_id:
+        type: string
+      phone:
+        type: string
+      user_id:
+        type: string
+    type: object
+  model.Outlet:
+    properties:
+      address:
+        type: string
+      business_id:
+        type: string
+      email:
+        type: string
+      id:
+        type: string
+      name:
+        type: string
+      phone:
+        type: string
+    type: object
+  model.OutletStaff:
+    properties:
+      id:
+        type: string
+      name:
+        type: string
+      outlet_id:
+        type: string
+      role:
+        type: string
+      username:
+        type: string
+    type: object
+  model.PaymentMethod:
+    properties:
+      id:
+        type: string
+      name:
+        type: string
+      outlet_id:
+        type: string
+      type:
+        type: string
+    type: object
+  model.Printer:
+    properties:
+      connection_type:
+        type: string
+      default_printer:
+        type: boolean
+      id:
+        type: string
+      ip_address:
+        type: string
+      mac_address:
+        type: string
+      name:
+        type: string
+      outlet_id:
+        type: string
+      paper_width:
+        type: integer
+    type: object
+  model.Product:
+    properties:
+      business_id:
+        type: string
+      category_id:
+        type: string
+      description:
+        type: string
+      id:
+        type: string
+      image:
+        type: string
+      name:
+        type: string
+      price:
+        type: number
+    type: object
+  model.ProductCategory:
+    properties:
+      business_id:
+        type: string
+      description:
+        type: string
+      id:
+        type: string
+      name:
+        type: string
+    type: object
+  model.Sale:
+    properties:
+      customer_id:
+        type: string
+      discount:
+        type: number
+      grand_total:
+        type: number
+      id:
+        type: string
+      invoice_number:
+        type: string
+      note:
+        type: string
+      outlet_id:
+        type: string
+      outlet_staff_id:
+        type: string
+      payment_method_id:
+        type: string
+      sale_date:
+        type: string
+      status:
+        type: string
+      table_id:
+        type: string
+      tax:
+        type: number
+      total:
+        type: number
+    type: object
+  model.Setting:
+    properties:
+      id:
+        type: string
+      key:
+        type: string
+      outlet_id:
+        type: string
+      value:
+        type: string
+    type: object
+  model.Table:
+    properties:
+      capacity:
+        type: integer
+      id:
+        type: string
+      location:
+        type: string
+      name:
+        type: string
+      outlet_id:
+        type: string
+      status:
+        type: string
+    type: object
   response.Common:
     properties:
       code:
@@ -458,7 +656,83 @@ definitions:
       status:
         type: string
     type: object
-  response.SuccessWithPaginate-model_Business:
+  response.SuccessWithBusinessUser:
+    properties:
+      business_user:
+        $ref: '#/definitions/model.BusinessUser'
+      code:
+        type: integer
+      message:
+        type: string
+      status:
+        type: string
+    type: object
+  response.SuccessWithCoupon:
+    properties:
+      code:
+        type: integer
+      coupon:
+        $ref: '#/definitions/model.Coupon'
+      message:
+        type: string
+      status:
+        type: string
+    type: object
+  response.SuccessWithCustomer:
+    properties:
+      code:
+        type: integer
+      customer:
+        $ref: '#/definitions/model.Customer'
+      message:
+        type: string
+      status:
+        type: string
+    type: object
+  response.SuccessWithOutlet:
+    properties:
+      code:
+        type: integer
+      message:
+        type: string
+      outlet:
+        $ref: '#/definitions/model.Outlet'
+      status:
+        type: string
+    type: object
+  response.SuccessWithOutletStaff:
+    properties:
+      code:
+        type: integer
+      message:
+        type: string
+      outlet_staff:
+        $ref: '#/definitions/model.OutletStaff'
+      status:
+        type: string
+    type: object
+  response.SuccessWithPaginatedBusinessUsers:
+    properties:
+      code:
+        type: integer
+      limit:
+        type: integer
+      message:
+        type: string
+      page:
+        type: integer
+      results:
+        items:
+          $ref: '#/definitions/model.BusinessUser'
+        type: array
+      status:
+        type: string
+      total_pages:
+        type: integer
+      total_results:
+        type: integer
+    type: object
+  response.SuccessWithPaginatedBusinesses:
     properties:
       code:
         type: integer
@@ -479,28 +753,634 @@ definitions:
       total_results:
         type: integer
     type: object
+  response.SuccessWithPaginatedCoupons:
+    properties:
+      code:
+        type: integer
+      limit:
+        type: integer
+      message:
+        type: string
+      page:
+        type: integer
+      results:
+        items:
+          $ref: '#/definitions/model.Coupon'
+        type: array
+      status:
+        type: string
+      total_pages:
+        type: integer
+      total_results:
+        type: integer
+    type: object
+  response.SuccessWithPaginatedCustomers:
+    properties:
+      code:
+        type: integer
+      limit:
+        type: integer
+      message:
+        type: string
+      page:
+        type: integer
+      results:
+        items:
+          $ref: '#/definitions/model.Customer'
+        type: array
+      status:
+        type: string
+      total_pages:
+        type: integer
+      total_results:
+        type: integer
+    type: object
+  response.SuccessWithPaginatedOutletStaff:
+    properties:
+      code:
+        type: integer
+      limit:
+        type: integer
+      message:
+        type: string
+      page:
+        type: integer
+      results:
+        items:
+          $ref: '#/definitions/model.OutletStaff'
+        type: array
+      status:
+        type: string
+      total_pages:
+        type: integer
+      total_results:
+        type: integer
+    type: object
+  response.SuccessWithPaginatedOutlets:
+    properties:
+      code:
+        type: integer
+      limit:
+        type: integer
+      message:
+        type: string
+      page:
+        type: integer
+      results:
+        items:
+          $ref: '#/definitions/model.Outlet'
+        type: array
+      status:
+        type: string
+      total_pages:
+        type: integer
+      total_results:
+        type: integer
+    type: object
+  response.SuccessWithPaginatedPaymentMethods:
+    properties:
+      code:
+        type: integer
+      limit:
+        type: integer
+      message:
+        type: string
+      page:
+        type: integer
+      results:
+        items:
+          $ref: '#/definitions/model.PaymentMethod'
+        type: array
+      status:
+        type: string
+      total_pages:
+        type: integer
+      total_results:
+        type: integer
+    type: object
+  response.SuccessWithPaginatedPrinters:
+    properties:
+      code:
+        type: integer
+      limit:
+        type: integer
+      message:
+        type: string
+      page:
+        type: integer
+      results:
+        items:
+          $ref: '#/definitions/model.Printer'
+        type: array
+      status:
+        type: string
+      total_pages:
+        type: integer
+      total_results:
+        type: integer
+    type: object
+  response.SuccessWithPaginatedProductCategories:
+    properties:
+      code:
+        type: integer
+      limit:
+        type: integer
+      message:
+        type: string
+      page:
+        type: integer
+      results:
+        items:
+          $ref: '#/definitions/model.ProductCategory'
+        type: array
+      status:
+        type: string
+      total_pages:
+        type: integer
+      total_results:
+        type: integer
+    type: object
+  response.SuccessWithPaginatedProducts:
+    properties:
+      code:
+        type: integer
+      limit:
+        type: integer
+      message:
+        type: string
+      page:
+        type: integer
+      results:
+        items:
+          $ref: '#/definitions/model.Product'
+        type: array
+      status:
+        type: string
+      total_pages:
+        type: integer
+      total_results:
+        type: integer
+    type: object
+  response.SuccessWithPaginatedSales:
+    properties:
+      code:
+        type: integer
+      limit:
+        type: integer
+      message:
+        type: string
+      page:
+        type: integer
+      results:
+        items:
+          $ref: '#/definitions/model.Sale'
+        type: array
+      status:
+        type: string
+      total_pages:
+        type: integer
+      total_results:
+        type: integer
+    type: object
+  response.SuccessWithPaginatedSettings:
+    properties:
+      code:
+        type: integer
+      limit:
+        type: integer
+      message:
+        type: string
+      page:
+        type: integer
+      results:
+        items:
+          $ref: '#/definitions/model.Setting'
+        type: array
+      status:
+        type: string
+      total_pages:
+        type: integer
+      total_results:
+        type: integer
+    type: object
+  response.SuccessWithPaginatedTables:
+    properties:
+      code:
+        type: integer
+      limit:
+        type: integer
+      message:
+        type: string
+      page:
+        type: integer
+      results:
+        items:
+          $ref: '#/definitions/model.Table'
+        type: array
+      status:
+        type: string
+      total_pages:
+        type: integer
+      total_results:
+        type: integer
+    type: object
+  response.SuccessWithPaymentMethod:
+    properties:
+      code:
+        type: integer
+      message:
+        type: string
+      payment_method:
+        $ref: '#/definitions/model.PaymentMethod'
+      status:
+        type: string
+    type: object
+  response.SuccessWithPrinter:
+    properties:
+      code:
+        type: integer
+      message:
+        type: string
+      printer:
+        $ref: '#/definitions/model.Printer'
+      status:
+        type: string
+    type: object
+  response.SuccessWithProduct:
+    properties:
+      code:
+        type: integer
+      message:
+        type: string
+      product:
+        $ref: '#/definitions/model.Product'
+      status:
+        type: string
+    type: object
+  response.SuccessWithProductCategory:
+    properties:
+      code:
+        type: integer
+      message:
+        type: string
+      product_category:
+        $ref: '#/definitions/model.ProductCategory'
+      status:
+        type: string
+    type: object
+  response.SuccessWithSale:
+    properties:
+      code:
+        type: integer
+      message:
+        type: string
+      sale:
+        $ref: '#/definitions/model.Sale'
+      status:
+        type: string
+    type: object
+  response.SuccessWithSalesReport:
+    properties:
+      code:
+        type: integer
+      message:
+        type: string
+      report:
+        items:
+          $ref: '#/definitions/model.Sale'
+        type: array
+      status:
+        type: string
+    type: object
+  response.SuccessWithSetting:
+    properties:
+      code:
+        type: integer
+      message:
+        type: string
+      setting:
+        $ref: '#/definitions/model.Setting'
+      status:
+        type: string
+    type: object
+  response.SuccessWithTable:
+    properties:
+      code:
+        type: integer
+      message:
+        type: string
+      status:
+        type: string
+      table:
+        $ref: '#/definitions/model.Table'
+    type: object
   validation.CreateBusiness:
     properties:
       address:
+        maxLength: 255
         type: string
       domain:
+        maxLength: 255
         type: string
       email:
+        maxLength: 255
         type: string
       logo:
+        maxLength: 255
         type: string
       name:
+        maxLength: 255
         type: string
       phone:
+        maxLength: 20
         type: string
       website:
+        maxLength: 255
         type: string
     required:
     - address
     - domain
+    - name
+    type: object
+  validation.CreateBusinessUser:
+    properties:
+      business_id:
+        type: string
+      role:
+        maxLength: 255
+        type: string
+      user_id:
+        type: string
+    required:
+    - business_id
+    - role
+    - user_id
+    type: object
+  validation.CreateCoupon:
+    properties:
+      code:
+        maxLength: 100
+        type: string
+      description:
+        type: string
+      discount_type:
+        enum:
+        - percentage
+        - fixed
+        type: string
+      discount_value:
+        minimum: 0
+        type: number
+      end_date:
+        type: string
+      is_active:
+        type: boolean
+      max_uses:
+        minimum: 1
+        type: integer
+      outlet_id:
+        type: string
+      start_date:
+        type: string
+    required:
+    - code
+    - discount_type
+    - discount_value
+    - end_date
+    - max_uses
+    - outlet_id
+    - start_date
+    type: object
+  validation.CreateCustomer:
+    properties:
+      address:
+        type: string
+      email:
+        maxLength: 255
+        type: string
+      loyalty_points:
+        minimum: 0
+        type: integer
+      name:
+        maxLength: 255
+        type: string
+      outlet_id:
+        type: string
+      phone:
+        maxLength: 50
+        type: string
+      user_id:
+        type: string
+    required:
     - email
     - name
-    - phone
+    - outlet_id
+    type: object
+  validation.CreateOutlet:
+    properties:
+      address:
+        maxLength: 255
+        type: string
+      business_id:
+        type: string
+      email:
+        maxLength: 255
+        type: string
+      name:
+        maxLength: 255
+        type: string
+      phone:
+        maxLength: 20
+        type: string
+    required:
+    - address
+    - business_id
+    - name
+    type: object
+  validation.CreateOutletStaff:
+    properties:
+      name:
+        maxLength: 255
+        type: string
+      outlet_id:
+        type: string
+      password:
+        maxLength: 255
+        minLength: 8
+        type: string
+      role:
+        maxLength: 255
+        type: string
+      username:
+        maxLength: 255
+        type: string
+    required:
+    - name
+    - outlet_id
+    - password
+    - role
+    type: object
+  validation.CreatePaymentMethod:
+    properties:
+      name:
+        maxLength: 255
+        type: string
+      outlet_id:
+        type: string
+      type:
+        maxLength: 255
+        type: string
+    required:
+    - name
+    - outlet_id
+    - type
+    type: object
+  validation.CreatePrinter:
+    properties:
+      connection_type:
+        maxLength: 50
+        type: string
+      default_printer:
+        type: boolean
+      ip_address:
+        maxLength: 50
+        type: string
+      mac_address:
+        maxLength: 50
+        type: string
+      name:
+        maxLength: 255
+        type: string
+      outlet_id:
+        type: string
+      paper_width:
+        minimum: 1
+        type: integer
+    required:
+    - connection_type
+    - name
+    - outlet_id
+    type: object
+  validation.CreateProduct:
+    properties:
+      business_id:
+        type: string
+      category_id:
+        type: string
+      description:
+        type: string
+      image:
+        maxLength: 255
+        type: string
+      name:
+        maxLength: 255
+        type: string
+      price:
+        minimum: 0
+        type: number
+    required:
+    - business_id
+    - category_id
+    - name
+    - price
+    type: object
+  validation.CreateProductCategory:
+    properties:
+      business_id:
+        type: string
+      description:
+        type: string
+      name:
+        maxLength: 255
+        type: string
+    required:
+    - business_id
+    - name
+    type: object
+  validation.CreateSale:
+    properties:
+      customer_id:
+        type: string
+      discount:
+        minimum: 0
+        type: number
+      grand_total:
+        minimum: 0
+        type: number
+      invoice_number:
+        maxLength: 50
+        type: string
+      note:
+        type: string
+      outlet_id:
+        type: string
+      outlet_staff_id:
+        type: string
+      payment_method_id:
+        type: string
+      sale_date:
+        type: string
+      status:
+        enum:
+        - paid
+        - unpaid
+        - void
+        - hold
+        type: string
+      table_id:
+        type: string
+      tax:
+        minimum: 0
+        type: number
+      total:
+        minimum: 0
+        type: number
+    required:
+    - grand_total
+    - invoice_number
+    - outlet_id
+    - outlet_staff_id
+    - status
+    - table_id
+    - total
+    type: object
+  validation.CreateSetting:
+    properties:
+      key:
+        maxLength: 100
+        type: string
+      outlet_id:
+        type: string
+      value:
+        type: string
+    required:
+    - key
+    - outlet_id
+    - value
+    type: object
+  validation.CreateTable:
+    properties:
+      capacity:
+        minimum: 1
+        type: integer
+      location:
+        maxLength: 255
+        type: string
+      name:
+        maxLength: 255
+        type: string
+      outlet_id:
+        type: string
+      status:
+        enum:
+        - available
+        - occupied
+        - reserved
+        type: string
+    required:
+    - capacity
+    - name
+    - outlet_id
     type: object
   validation.CreateUser:
     properties:
@@ -577,16 +1457,101 @@ definitions:
   validation.UpdateBusiness:
     properties:
       address:
+        maxLength: 255
         type: string
       email:
+        maxLength: 255
         type: string
       logo:
+        maxLength: 255
         type: string
       name:
+        maxLength: 255
         type: string
       phone:
+        maxLength: 20
         type: string
       website:
+        maxLength: 255
+        type: string
+    type: object
+  validation.UpdateBusinessUser:
+    properties:
+      role:
+        maxLength: 255
+        type: string
+    type: object
+  validation.UpdateCoupon:
+    properties:
+      code:
+        maxLength: 100
+        type: string
+      description:
+        type: string
+      discount_type:
+        enum:
+        - percentage
+        - fixed
+        type: string
+      discount_value:
+        minimum: 0
+        type: number
+      end_date:
+        type: string
+      is_active:
+        type: boolean
+      max_uses:
+        minimum: 1
+        type: integer
+      start_date:
+        type: string
+    type: object
+  validation.UpdateCustomer:
+    properties:
+      address:
+        type: string
+      email:
+        maxLength: 255
+        type: string
+      loyalty_points:
+        minimum: 0
+        type: integer
+      name:
+        maxLength: 255
+        type: string
+      phone:
+        maxLength: 50
+        type: string
+    type: object
+  validation.UpdateOutlet:
+    properties:
+      address:
+        maxLength: 255
+        type: string
+      email:
+        maxLength: 255
+        type: string
+      name:
+        maxLength: 255
+        type: string
+      phone:
+        maxLength: 20
+        type: string
+    type: object
+  validation.UpdateOutletStaff:
+    properties:
+      name:
+        maxLength: 255
+        type: string
+      password:
+        maxLength: 255
+        minLength: 8
+        type: string
+      role:
+        maxLength: 255
+        type: string
+      username:
+        maxLength: 255
         type: string
     type: object
   validation.UpdatePassOrVerify:
@@ -595,6 +1560,124 @@ definitions:
         example: password1
         maxLength: 20
         minLength: 8
+        type: string
+    type: object
+  validation.UpdatePaymentMethod:
+    properties:
+      name:
+        maxLength: 255
+        type: string
+      type:
+        maxLength: 255
+        type: string
+    type: object
+  validation.UpdatePrinter:
+    properties:
+      connection_type:
+        maxLength: 50
+        type: string
+      default_printer:
+        type: boolean
+      ip_address:
+        maxLength: 50
+        type: string
+      mac_address:
+        maxLength: 50
+        type: string
+      name:
+        maxLength: 255
+        type: string
+      paper_width:
+        minimum: 1
+        type: integer
+    type: object
+  validation.UpdateProduct:
+    properties:
+      category_id:
+        type: string
+      description:
+        type: string
+      image:
+        maxLength: 255
+        type: string
+      name:
+        maxLength: 255
+        type: string
+      price:
+        minimum: 0
+        type: number
+    type: object
+  validation.UpdateProductCategory:
+    properties:
+      description:
+        type: string
+      name:
+        maxLength: 255
+        type: string
+    type: object
+  validation.UpdateSale:
+    properties:
+      customer_id:
+        type: string
+      discount:
+        minimum: 0
+        type: number
+      grand_total:
+        minimum: 0
+        type: number
+      note:
+        type: string
+      payment_method_id:
+        type: string
+      status:
+        enum:
+        - paid
+        - unpaid
+        - void
+        - hold
+        type: string
+      table_id:
+        type: string
+      tax:
+        minimum: 0
+        type: number
+      total:
+        minimum: 0
+        type: number
+    type: object
+  validation.UpdateSaleStatus:
+    properties:
+      status:
+        enum:
+        - paid
+        - unpaid
+        - void
+        - hold
+        type: string
+    required:
+    - status
+    type: object
+  validation.UpdateSetting:
+    properties:
+      value:
+        type: string
+    type: object
+  validation.UpdateTable:
+    properties:
+      capacity:
+        minimum: 1
+        type: integer
+      location:
+        maxLength: 255
+        type: string
+      name:
+        maxLength: 255
+        type: string
+      status:
+        enum:
+        - available
+        - occupied
+        - reserved
         type: string
     type: object
   validation.UpdateUser:
@@ -615,11 +1698,17 @@ definitions:
     type: object
 host: localhost:3000
 info:
-  contact: {}
+  contact:
+    email: support@example.com
+    name: API Support
+  description: A comprehensive Point of Sale (POS) backend system built with Go and
+    Fiber framework. This API provides endpoints for managing users, businesses, outlets,
+    products, sales, customers, and all other POS-related operations.
   license:
     name: MIT
     url: https://github.com/indrayyana/go-fiber-boilerplate/blob/main/LICENSE
-  title: go-fiber-boilerplate API documentation
+  termsOfService: http://swagger.io/terms/
+  title: POS Backend API
   version: 1.0.0
 paths:
   /auth/forgot-password:
@@ -831,6 +1920,212 @@ paths:
       summary: Verify email
       tags:
       - Auth
+  /business-users:
+    get:
+      description: Get all business users with pagination and search functionality
+      parameters:
+      - default: 1
+        description: Page number
+        in: query
+        name: page
+        type: integer
+      - default: 10
+        description: Maximum number of business users
+        in: query
+        name: limit
+        type: integer
+      - description: Search by name or email
+        in: query
+        name: search
+        type: string
+      - description: Filter by business ID
+        in: query
+        name: businessId
+        type: string
+      - description: Filter by role
+        in: query
+        name: role
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.SuccessWithPaginatedBusinessUsers'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+      security:
+      - BearerAuth: []
+      summary: Get all business users
+      tags:
+      - Business User
+    post:
+      consumes:
+      - application/json
+      description: Create a new business user (assign user to business)
+      parameters:
+      - description: Business user data
+        in: body
+        name: businessUser
+        required: true
+        schema:
+          $ref: '#/definitions/validation.CreateBusinessUser'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/response.SuccessWithBusinessUser'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+        "409":
+          description: User already assigned to this business
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+      security:
+      - BearerAuth: []
+      summary: Create new business user
+      tags:
+      - Business User
+  /business-users/{id}:
+    delete:
+      description: Delete a business user by ID (remove user from business)
+      parameters:
+      - description: Business User ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.Common'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+        "404":
+          description: Business user not found
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+      security:
+      - BearerAuth: []
+      summary: Delete business user
+      tags:
+      - Business User
+    get:
+      description: Get a specific business user by its ID
+      parameters:
+      - description: Business User ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.SuccessWithBusinessUser'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+        "404":
+          description: Business user not found
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+      security:
+      - BearerAuth: []
+      summary: Get business user by ID
+      tags:
+      - Business User
+    put:
+      consumes:
+      - application/json
+      description: Update an existing business user
+      parameters:
+      - description: Business User ID
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Business user data to update
+        in: body
+        name: businessUser
+        required: true
+        schema:
+          $ref: '#/definitions/validation.UpdateBusinessUser'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.SuccessWithBusinessUser'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+        "404":
+          description: Business user not found
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+      security:
+      - BearerAuth: []
+      summary: Update business user
+      tags:
+      - Business User
   /businesses:
     get:
       description: Get all businesses with pagination and search functionality
@@ -855,7 +2150,7 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/response.SuccessWithPaginate-model_Business'
+            $ref: '#/definitions/response.SuccessWithPaginatedBusinesses'
         "400":
           description: Bad Request
           schema:
@@ -912,6 +2207,72 @@ paths:
       summary: Create new business
       tags:
       - Business
+  /businesses/{businessId}/outlets:
+    get:
+      description: Get all outlets for a specific business
+      parameters:
+      - description: Business ID
+        in: path
+        name: businessId
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.SuccessWithPaginatedOutlets'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+      security:
+      - BearerAuth: []
+      summary: Get outlets by business ID
+      tags:
+      - Outlet
+  /businesses/{businessId}/users:
+    get:
+      description: Get all users for a specific business
+      parameters:
+      - description: Business ID
+        in: path
+        name: businessId
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.SuccessWithPaginatedBusinessUsers'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+      security:
+      - BearerAuth: []
+      summary: Get business users by business ID
+      tags:
+      - Business User
   /businesses/{id}:
     delete:
       description: Delete a business by ID
@@ -1033,6 +2394,459 @@ paths:
       summary: Update business
       tags:
       - Business
+  /coupons:
+    get:
+      description: Get all coupons with pagination and search functionality
+      parameters:
+      - default: 1
+        description: Page number
+        in: query
+        name: page
+        type: integer
+      - default: 10
+        description: Maximum number of coupons
+        in: query
+        name: limit
+        type: integer
+      - description: Search by code or name
+        in: query
+        name: search
+        type: string
+      - description: Filter by outlet ID
+        in: query
+        name: outletId
+        type: string
+      - description: Filter by active status
+        in: query
+        name: active
+        type: boolean
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.SuccessWithPaginatedCoupons'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+      security:
+      - BearerAuth: []
+      summary: Get all coupons
+      tags:
+      - Coupon
+    post:
+      consumes:
+      - application/json
+      description: Create a new coupon
+      parameters:
+      - description: Coupon data
+        in: body
+        name: coupon
+        required: true
+        schema:
+          $ref: '#/definitions/validation.CreateCoupon'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/response.SuccessWithCoupon'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+        "409":
+          description: Coupon code already exists
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+      security:
+      - BearerAuth: []
+      summary: Create new coupon
+      tags:
+      - Coupon
+  /coupons/{id}:
+    delete:
+      description: Delete a coupon by ID
+      parameters:
+      - description: Coupon ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.Common'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+        "404":
+          description: Coupon not found
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+      security:
+      - BearerAuth: []
+      summary: Delete coupon
+      tags:
+      - Coupon
+    get:
+      description: Get a specific coupon by its ID
+      parameters:
+      - description: Coupon ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.SuccessWithCoupon'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+        "404":
+          description: Coupon not found
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+      security:
+      - BearerAuth: []
+      summary: Get coupon by ID
+      tags:
+      - Coupon
+    put:
+      consumes:
+      - application/json
+      description: Update an existing coupon
+      parameters:
+      - description: Coupon ID
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Coupon data to update
+        in: body
+        name: coupon
+        required: true
+        schema:
+          $ref: '#/definitions/validation.UpdateCoupon'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.SuccessWithCoupon'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+        "404":
+          description: Coupon not found
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+        "409":
+          description: Coupon code already exists
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+      security:
+      - BearerAuth: []
+      summary: Update coupon
+      tags:
+      - Coupon
+  /coupons/code/{code}:
+    get:
+      description: Get a specific coupon by its code
+      parameters:
+      - description: Coupon Code
+        in: path
+        name: code
+        required: true
+        type: string
+      - description: Outlet ID (optional)
+        in: query
+        name: outletId
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.SuccessWithCoupon'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+        "404":
+          description: Coupon not found
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+      security:
+      - BearerAuth: []
+      summary: Get coupon by code
+      tags:
+      - Coupon
+  /customers:
+    get:
+      description: Get all customers with pagination and search functionality
+      parameters:
+      - default: 1
+        description: Page number
+        in: query
+        name: page
+        type: integer
+      - default: 10
+        description: Maximum number of customers
+        in: query
+        name: limit
+        type: integer
+      - description: Search by name or email or phone
+        in: query
+        name: search
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.SuccessWithPaginatedCustomers'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+      security:
+      - BearerAuth: []
+      summary: Get all customers
+      tags:
+      - Customer
+    post:
+      consumes:
+      - application/json
+      description: Create a new customer
+      parameters:
+      - description: Customer data
+        in: body
+        name: customer
+        required: true
+        schema:
+          $ref: '#/definitions/validation.CreateCustomer'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/response.SuccessWithCustomer'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+        "409":
+          description: Customer email already exists
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+      security:
+      - BearerAuth: []
+      summary: Create new customer
+      tags:
+      - Customer
+  /customers/{id}:
+    delete:
+      description: Delete a customer by ID
+      parameters:
+      - description: Customer ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.Common'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+        "404":
+          description: Customer not found
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+      security:
+      - BearerAuth: []
+      summary: Delete customer
+      tags:
+      - Customer
+    get:
+      description: Get a specific customer by its ID
+      parameters:
+      - description: Customer ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.SuccessWithCustomer'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+        "404":
+          description: Customer not found
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+      security:
+      - BearerAuth: []
+      summary: Get customer by ID
+      tags:
+      - Customer
+    put:
+      consumes:
+      - application/json
+      description: Update an existing customer
+      parameters:
+      - description: Customer ID
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Customer data to update
+        in: body
+        name: customer
+        required: true
+        schema:
+          $ref: '#/definitions/validation.UpdateCustomer'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.SuccessWithCustomer'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+        "404":
+          description: Customer not found
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+        "409":
+          description: Customer email already exists
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+      security:
+      - BearerAuth: []
+      summary: Update customer
+      tags:
+      - Customer
   /health-check:
     get:
       consumes:
@@ -1052,6 +2866,2102 @@ paths:
       summary: Health Check
       tags:
       - Health
+  /outlet-staff:
+    get:
+      description: Get all outlet staff with pagination and search functionality
+      parameters:
+      - default: 1
+        description: Page number
+        in: query
+        name: page
+        type: integer
+      - default: 10
+        description: Maximum number of staff
+        in: query
+        name: limit
+        type: integer
+      - description: Search by name or email
+        in: query
+        name: search
+        type: string
+      - description: Filter by outlet ID
+        in: query
+        name: outletId
+        type: string
+      - description: Filter by role
+        in: query
+        name: role
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.SuccessWithPaginatedOutletStaff'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+      security:
+      - BearerAuth: []
+      summary: Get all outlet staff
+      tags:
+      - Outlet Staff
+    post:
+      consumes:
+      - application/json
+      description: Create a new outlet staff member
+      parameters:
+      - description: Outlet staff data
+        in: body
+        name: staff
+        required: true
+        schema:
+          $ref: '#/definitions/validation.CreateOutletStaff'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/response.SuccessWithOutletStaff'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+        "409":
+          description: User already assigned to this outlet
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+      security:
+      - BearerAuth: []
+      summary: Create new outlet staff
+      tags:
+      - Outlet Staff
+  /outlet-staff/{id}:
+    delete:
+      description: Delete an outlet staff member by ID
+      parameters:
+      - description: Outlet Staff ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.Common'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+        "404":
+          description: Outlet staff not found
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+      security:
+      - BearerAuth: []
+      summary: Delete outlet staff
+      tags:
+      - Outlet Staff
+    get:
+      description: Get a specific outlet staff by its ID
+      parameters:
+      - description: Outlet Staff ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.SuccessWithOutletStaff'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+        "404":
+          description: Outlet staff not found
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+      security:
+      - BearerAuth: []
+      summary: Get outlet staff by ID
+      tags:
+      - Outlet Staff
+    put:
+      consumes:
+      - application/json
+      description: Update an existing outlet staff member
+      parameters:
+      - description: Outlet Staff ID
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Outlet staff data to update
+        in: body
+        name: staff
+        required: true
+        schema:
+          $ref: '#/definitions/validation.UpdateOutletStaff'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.SuccessWithOutletStaff'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+        "404":
+          description: Outlet staff not found
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+      security:
+      - BearerAuth: []
+      summary: Update outlet staff
+      tags:
+      - Outlet Staff
+  /outlets:
+    get:
+      description: Get all outlets with pagination and search functionality
+      parameters:
+      - default: 1
+        description: Page number
+        in: query
+        name: page
+        type: integer
+      - default: 10
+        description: Maximum number of outlets
+        in: query
+        name: limit
+        type: integer
+      - description: Search by name or address
+        in: query
+        name: search
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.SuccessWithPaginatedOutlets'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+      security:
+      - BearerAuth: []
+      summary: Get all outlets
+      tags:
+      - Outlet
+    post:
+      consumes:
+      - application/json
+      description: Create a new outlet
+      parameters:
+      - description: Outlet data
+        in: body
+        name: outlet
+        required: true
+        schema:
+          $ref: '#/definitions/validation.CreateOutlet'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/response.SuccessWithOutlet'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+        "409":
+          description: Outlet already exists
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+      security:
+      - BearerAuth: []
+      summary: Create new outlet
+      tags:
+      - Outlet
+  /outlets/{id}:
+    delete:
+      description: Delete an outlet by ID
+      parameters:
+      - description: Outlet ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.Common'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+        "404":
+          description: Outlet not found
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+      security:
+      - BearerAuth: []
+      summary: Delete outlet
+      tags:
+      - Outlet
+    get:
+      description: Get a specific outlet by its ID
+      parameters:
+      - description: Outlet ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.SuccessWithOutlet'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+        "404":
+          description: Outlet not found
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+      security:
+      - BearerAuth: []
+      summary: Get outlet by ID
+      tags:
+      - Outlet
+    put:
+      consumes:
+      - application/json
+      description: Update an existing outlet
+      parameters:
+      - description: Outlet ID
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Outlet data to update
+        in: body
+        name: outlet
+        required: true
+        schema:
+          $ref: '#/definitions/validation.UpdateOutlet'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.SuccessWithOutlet'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+        "404":
+          description: Outlet not found
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+      security:
+      - BearerAuth: []
+      summary: Update outlet
+      tags:
+      - Outlet
+  /outlets/{outletId}/printers:
+    get:
+      description: Get all printers for a specific outlet
+      parameters:
+      - description: Outlet ID
+        in: path
+        name: outletId
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.SuccessWithPaginatedPrinters'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+      security:
+      - BearerAuth: []
+      summary: Get printers by outlet ID
+      tags:
+      - Printer
+  /outlets/{outletId}/staff:
+    get:
+      description: Get all staff for a specific outlet
+      parameters:
+      - description: Outlet ID
+        in: path
+        name: outletId
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.SuccessWithPaginatedOutletStaff'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+      security:
+      - BearerAuth: []
+      summary: Get outlet staff by outlet ID
+      tags:
+      - Outlet Staff
+  /outlets/{outletId}/tables:
+    get:
+      description: Get all tables for a specific outlet
+      parameters:
+      - description: Outlet ID
+        in: path
+        name: outletId
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.SuccessWithPaginatedTables'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+      security:
+      - BearerAuth: []
+      summary: Get tables by outlet ID
+      tags:
+      - Table
+  /payment-methods:
+    get:
+      description: Get all payment methods with pagination and search functionality
+      parameters:
+      - default: 1
+        description: Page number
+        in: query
+        name: page
+        type: integer
+      - default: 10
+        description: Maximum number of payment methods
+        in: query
+        name: limit
+        type: integer
+      - description: Search by name or type
+        in: query
+        name: search
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.SuccessWithPaginatedPaymentMethods'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+      security:
+      - BearerAuth: []
+      summary: Get all payment methods
+      tags:
+      - Payment Method
+    post:
+      consumes:
+      - application/json
+      description: Create a new payment method
+      parameters:
+      - description: Payment method data
+        in: body
+        name: paymentMethod
+        required: true
+        schema:
+          $ref: '#/definitions/validation.CreatePaymentMethod'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/response.SuccessWithPaymentMethod'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+        "409":
+          description: Payment method name already exists
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+      security:
+      - BearerAuth: []
+      summary: Create new payment method
+      tags:
+      - Payment Method
+  /payment-methods/{id}:
+    delete:
+      description: Delete a payment method by ID
+      parameters:
+      - description: Payment Method ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.Common'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+        "404":
+          description: Payment method not found
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+      security:
+      - BearerAuth: []
+      summary: Delete payment method
+      tags:
+      - Payment Method
+    get:
+      description: Get a specific payment method by its ID
+      parameters:
+      - description: Payment Method ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.SuccessWithPaymentMethod'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+        "404":
+          description: Payment method not found
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+      security:
+      - BearerAuth: []
+      summary: Get payment method by ID
+      tags:
+      - Payment Method
+    put:
+      consumes:
+      - application/json
+      description: Update an existing payment method
+      parameters:
+      - description: Payment Method ID
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Payment method data to update
+        in: body
+        name: paymentMethod
+        required: true
+        schema:
+          $ref: '#/definitions/validation.UpdatePaymentMethod'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.SuccessWithPaymentMethod'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+        "404":
+          description: Payment method not found
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+        "409":
+          description: Payment method name already exists
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+      security:
+      - BearerAuth: []
+      summary: Update payment method
+      tags:
+      - Payment Method
+  /printers:
+    get:
+      description: Get all printers with pagination and search functionality
+      parameters:
+      - default: 1
+        description: Page number
+        in: query
+        name: page
+        type: integer
+      - default: 10
+        description: Maximum number of printers
+        in: query
+        name: limit
+        type: integer
+      - description: Search by name or type
+        in: query
+        name: search
+        type: string
+      - description: Filter by outlet ID
+        in: query
+        name: outletId
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.SuccessWithPaginatedPrinters'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+      security:
+      - BearerAuth: []
+      summary: Get all printers
+      tags:
+      - Printer
+    post:
+      consumes:
+      - application/json
+      description: Create a new printer
+      parameters:
+      - description: Printer data
+        in: body
+        name: printer
+        required: true
+        schema:
+          $ref: '#/definitions/validation.CreatePrinter'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/response.SuccessWithPrinter'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+        "409":
+          description: Printer name already exists in outlet
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+      security:
+      - BearerAuth: []
+      summary: Create new printer
+      tags:
+      - Printer
+  /printers/{id}:
+    delete:
+      description: Delete a printer by ID
+      parameters:
+      - description: Printer ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.Common'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+        "404":
+          description: Printer not found
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+      security:
+      - BearerAuth: []
+      summary: Delete printer
+      tags:
+      - Printer
+    get:
+      description: Get a specific printer by its ID
+      parameters:
+      - description: Printer ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.SuccessWithPrinter'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+        "404":
+          description: Printer not found
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+      security:
+      - BearerAuth: []
+      summary: Get printer by ID
+      tags:
+      - Printer
+    put:
+      consumes:
+      - application/json
+      description: Update an existing printer
+      parameters:
+      - description: Printer ID
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Printer data to update
+        in: body
+        name: printer
+        required: true
+        schema:
+          $ref: '#/definitions/validation.UpdatePrinter'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.SuccessWithPrinter'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+        "404":
+          description: Printer not found
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+        "409":
+          description: Printer name already exists in outlet
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+      security:
+      - BearerAuth: []
+      summary: Update printer
+      tags:
+      - Printer
+  /product-categories:
+    get:
+      description: Get all product categories with pagination and search functionality
+      parameters:
+      - default: 1
+        description: Page number
+        in: query
+        name: page
+        type: integer
+      - default: 10
+        description: Maximum number of categories
+        in: query
+        name: limit
+        type: integer
+      - description: Search by name or description
+        in: query
+        name: search
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.SuccessWithPaginatedProductCategories'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+      security:
+      - BearerAuth: []
+      summary: Get all product categories
+      tags:
+      - Product Category
+    post:
+      consumes:
+      - application/json
+      description: Create a new product category
+      parameters:
+      - description: Product category data
+        in: body
+        name: category
+        required: true
+        schema:
+          $ref: '#/definitions/validation.CreateProductCategory'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/response.SuccessWithProductCategory'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+      security:
+      - BearerAuth: []
+      summary: Create new product category
+      tags:
+      - Product Category
+  /product-categories/{id}:
+    delete:
+      description: Delete a product category by ID
+      parameters:
+      - description: Product Category ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.Common'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+        "404":
+          description: Product category not found
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+      security:
+      - BearerAuth: []
+      summary: Delete product category
+      tags:
+      - Product Category
+    get:
+      description: Get a specific product category by its ID
+      parameters:
+      - description: Product Category ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.SuccessWithProductCategory'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+        "404":
+          description: Product category not found
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+      security:
+      - BearerAuth: []
+      summary: Get product category by ID
+      tags:
+      - Product Category
+    put:
+      consumes:
+      - application/json
+      description: Update an existing product category
+      parameters:
+      - description: Product Category ID
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Product category data to update
+        in: body
+        name: category
+        required: true
+        schema:
+          $ref: '#/definitions/validation.UpdateProductCategory'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.SuccessWithProductCategory'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+        "404":
+          description: Product category not found
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+      security:
+      - BearerAuth: []
+      summary: Update product category
+      tags:
+      - Product Category
+  /products:
+    get:
+      description: Get all products with pagination and search functionality
+      parameters:
+      - default: 1
+        description: Page number
+        in: query
+        name: page
+        type: integer
+      - default: 10
+        description: Maximum number of products
+        in: query
+        name: limit
+        type: integer
+      - description: Search by name or description
+        in: query
+        name: search
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.SuccessWithPaginatedProducts'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+      security:
+      - BearerAuth: []
+      summary: Get all products
+      tags:
+      - Product
+    post:
+      consumes:
+      - application/json
+      description: Create a new product
+      parameters:
+      - description: Product data
+        in: body
+        name: product
+        required: true
+        schema:
+          $ref: '#/definitions/validation.CreateProduct'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/response.SuccessWithProduct'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+      security:
+      - BearerAuth: []
+      summary: Create new product
+      tags:
+      - Product
+  /products/{id}:
+    delete:
+      description: Delete a product by ID
+      parameters:
+      - description: Product ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.Common'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+        "404":
+          description: Product not found
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+      security:
+      - BearerAuth: []
+      summary: Delete product
+      tags:
+      - Product
+    get:
+      description: Get a specific product by its ID
+      parameters:
+      - description: Product ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.SuccessWithProduct'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+        "404":
+          description: Product not found
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+      security:
+      - BearerAuth: []
+      summary: Get product by ID
+      tags:
+      - Product
+    put:
+      consumes:
+      - application/json
+      description: Update an existing product
+      parameters:
+      - description: Product ID
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Product data to update
+        in: body
+        name: product
+        required: true
+        schema:
+          $ref: '#/definitions/validation.UpdateProduct'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.SuccessWithProduct'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+        "404":
+          description: Product not found
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+      security:
+      - BearerAuth: []
+      summary: Update product
+      tags:
+      - Product
+  /sales:
+    get:
+      description: Get all sales with pagination and search functionality
+      parameters:
+      - default: 1
+        description: Page number
+        in: query
+        name: page
+        type: integer
+      - default: 10
+        description: Maximum number of sales
+        in: query
+        name: limit
+        type: integer
+      - description: Search by invoice number or customer name
+        in: query
+        name: search
+        type: string
+      - description: Filter by outlet ID
+        in: query
+        name: outletId
+        type: string
+      - description: Filter by customer ID
+        in: query
+        name: customerId
+        type: string
+      - description: Filter by status (pending, completed, cancelled)
+        in: query
+        name: status
+        type: string
+      - description: Filter by date from (YYYY-MM-DD)
+        in: query
+        name: dateFrom
+        type: string
+      - description: Filter by date to (YYYY-MM-DD)
+        in: query
+        name: dateTo
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.SuccessWithPaginatedSales'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+      security:
+      - BearerAuth: []
+      summary: Get all sales
+      tags:
+      - Sale
+    post:
+      consumes:
+      - application/json
+      description: Create a new sale transaction
+      parameters:
+      - description: Sale data
+        in: body
+        name: sale
+        required: true
+        schema:
+          $ref: '#/definitions/validation.CreateSale'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/response.SuccessWithSale'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+        "409":
+          description: Invoice number already exists
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+      security:
+      - BearerAuth: []
+      summary: Create new sale
+      tags:
+      - Sale
+  /sales/{id}:
+    delete:
+      description: Delete a sale by ID (soft delete)
+      parameters:
+      - description: Sale ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.Common'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+        "404":
+          description: Sale not found
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+      security:
+      - BearerAuth: []
+      summary: Delete sale
+      tags:
+      - Sale
+    get:
+      description: Get a specific sale by its ID with items details
+      parameters:
+      - description: Sale ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.SuccessWithSale'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+        "404":
+          description: Sale not found
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+      security:
+      - BearerAuth: []
+      summary: Get sale by ID
+      tags:
+      - Sale
+    put:
+      consumes:
+      - application/json
+      description: Update an existing sale
+      parameters:
+      - description: Sale ID
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Sale data to update
+        in: body
+        name: sale
+        required: true
+        schema:
+          $ref: '#/definitions/validation.UpdateSale'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.SuccessWithSale'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+        "404":
+          description: Sale not found
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+      security:
+      - BearerAuth: []
+      summary: Update sale
+      tags:
+      - Sale
+  /sales/{id}/status:
+    patch:
+      consumes:
+      - application/json
+      description: Update the status of a sale (pending, completed, cancelled)
+      parameters:
+      - description: Sale ID
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Sale status data
+        in: body
+        name: status
+        required: true
+        schema:
+          $ref: '#/definitions/validation.UpdateSaleStatus'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.SuccessWithSale'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+        "404":
+          description: Sale not found
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+      security:
+      - BearerAuth: []
+      summary: Update sale status
+      tags:
+      - Sale
+  /sales/invoice/{invoiceNumber}:
+    get:
+      description: Get a specific sale by its invoice number
+      parameters:
+      - description: Invoice Number
+        in: path
+        name: invoiceNumber
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.SuccessWithSale'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+        "404":
+          description: Sale not found
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+      security:
+      - BearerAuth: []
+      summary: Get sale by invoice number
+      tags:
+      - Sale
+  /sales/report:
+    get:
+      description: Get sales report with various aggregations
+      parameters:
+      - description: Filter by outlet ID
+        in: query
+        name: outletId
+        type: string
+      - description: Filter by date from (YYYY-MM-DD)
+        in: query
+        name: dateFrom
+        type: string
+      - description: Filter by date to (YYYY-MM-DD)
+        in: query
+        name: dateTo
+        type: string
+      - description: Group by (day, week, month, year)
+        in: query
+        name: groupBy
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.SuccessWithSalesReport'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+      security:
+      - BearerAuth: []
+      summary: Get sales report
+      tags:
+      - Sale
+  /settings:
+    get:
+      description: Get all settings with pagination and search functionality
+      parameters:
+      - default: 1
+        description: Page number
+        in: query
+        name: page
+        type: integer
+      - default: 10
+        description: Maximum number of settings
+        in: query
+        name: limit
+        type: integer
+      - description: Search by key or description
+        in: query
+        name: search
+        type: string
+      - description: Filter by outlet ID
+        in: query
+        name: outletId
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.SuccessWithPaginatedSettings'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+      security:
+      - BearerAuth: []
+      summary: Get all settings
+      tags:
+      - Setting
+    post:
+      consumes:
+      - application/json
+      description: Create a new setting
+      parameters:
+      - description: Setting data
+        in: body
+        name: setting
+        required: true
+        schema:
+          $ref: '#/definitions/validation.CreateSetting'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/response.SuccessWithSetting'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+        "409":
+          description: Setting key already exists
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+      security:
+      - BearerAuth: []
+      summary: Create new setting
+      tags:
+      - Setting
+  /settings/{id}:
+    delete:
+      description: Delete a setting by ID
+      parameters:
+      - description: Setting ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.Common'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+        "404":
+          description: Setting not found
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+      security:
+      - BearerAuth: []
+      summary: Delete setting
+      tags:
+      - Setting
+    get:
+      description: Get a specific setting by its ID
+      parameters:
+      - description: Setting ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.SuccessWithSetting'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+        "404":
+          description: Setting not found
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+      security:
+      - BearerAuth: []
+      summary: Get setting by ID
+      tags:
+      - Setting
+    put:
+      consumes:
+      - application/json
+      description: Update an existing setting
+      parameters:
+      - description: Setting ID
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Setting data to update
+        in: body
+        name: setting
+        required: true
+        schema:
+          $ref: '#/definitions/validation.UpdateSetting'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.SuccessWithSetting'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+        "404":
+          description: Setting not found
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+        "409":
+          description: Setting key already exists
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+      security:
+      - BearerAuth: []
+      summary: Update setting
+      tags:
+      - Setting
+  /settings/key/{key}:
+    get:
+      description: Get a specific setting by its key
+      parameters:
+      - description: Setting Key
+        in: path
+        name: key
+        required: true
+        type: string
+      - description: Outlet ID (optional)
+        in: query
+        name: outletId
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.SuccessWithSetting'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+        "404":
+          description: Setting not found
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+      security:
+      - BearerAuth: []
+      summary: Get setting by key
+      tags:
+      - Setting
+  /tables:
+    get:
+      description: Get all tables with pagination and search functionality
+      parameters:
+      - default: 1
+        description: Page number
+        in: query
+        name: page
+        type: integer
+      - default: 10
+        description: Maximum number of tables
+        in: query
+        name: limit
+        type: integer
+      - description: Search by table number or name
+        in: query
+        name: search
+        type: string
+      - description: Filter by outlet ID
+        in: query
+        name: outletId
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.SuccessWithPaginatedTables'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+      security:
+      - BearerAuth: []
+      summary: Get all tables
+      tags:
+      - Table
+    post:
+      consumes:
+      - application/json
+      description: Create a new table
+      parameters:
+      - description: Table data
+        in: body
+        name: table
+        required: true
+        schema:
+          $ref: '#/definitions/validation.CreateTable'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/response.SuccessWithTable'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+        "409":
+          description: Table number already exists in outlet
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+      security:
+      - BearerAuth: []
+      summary: Create new table
+      tags:
+      - Table
+  /tables/{id}:
+    delete:
+      description: Delete a table by ID
+      parameters:
+      - description: Table ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.Common'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+        "404":
+          description: Table not found
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+      security:
+      - BearerAuth: []
+      summary: Delete table
+      tags:
+      - Table
+    get:
+      description: Get a specific table by its ID
+      parameters:
+      - description: Table ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.SuccessWithTable'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+        "404":
+          description: Table not found
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+      security:
+      - BearerAuth: []
+      summary: Get table by ID
+      tags:
+      - Table
+    put:
+      consumes:
+      - application/json
+      description: Update an existing table
+      parameters:
+      - description: Table ID
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Table data to update
+        in: body
+        name: table
+        required: true
+        schema:
+          $ref: '#/definitions/validation.UpdateTable'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.SuccessWithTable'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+        "404":
+          description: Table not found
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+        "409":
+          description: Table number already exists in outlet
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.ErrorDetails'
+      security:
+      - BearerAuth: []
+      summary: Update table
+      tags:
+      - Table
   /users:
     get:
       description: Only admins can retrieve all users.

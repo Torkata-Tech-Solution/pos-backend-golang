@@ -1,7 +1,6 @@
 package integration
 
 import (
-	"app/src/model"
 	"app/src/response"
 	"app/src/validation"
 	"app/test"
@@ -308,7 +307,7 @@ func TestUserRoutes(t *testing.T) {
 			bytes, err := io.ReadAll(apiResponse.Body)
 			assert.Nil(t, err)
 
-			responseBody := new(response.SuccessWithPaginate[model.User])
+			responseBody := new(response.SuccessWithPaginatedUsers)
 
 			err = json.Unmarshal(bytes, responseBody)
 			assert.Nil(t, err)
@@ -371,7 +370,7 @@ func TestUserRoutes(t *testing.T) {
 			bytes, err := io.ReadAll(apiResponse.Body)
 			assert.Nil(t, err)
 
-			responseBody := new(response.SuccessWithPaginate[model.User])
+			responseBody := new(response.SuccessWithPaginatedUsers)
 
 			err = json.Unmarshal(bytes, responseBody)
 			assert.Nil(t, err)
@@ -403,7 +402,7 @@ func TestUserRoutes(t *testing.T) {
 			bytes, err := io.ReadAll(apiResponse.Body)
 			assert.Nil(t, err)
 
-			responseBody := new(response.SuccessWithPaginate[model.User])
+			responseBody := new(response.SuccessWithPaginatedUsers)
 
 			err = json.Unmarshal(bytes, responseBody)
 			assert.Nil(t, err)
