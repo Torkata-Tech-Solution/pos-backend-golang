@@ -15,6 +15,7 @@ if "%1"=="testsum" goto testsum
 if "%1"=="swagger" goto swagger
 if "%1"=="migrate-up" goto migrateup
 if "%1"=="migrate-down" goto migratedown
+if "%1"=="migrate-force" goto migrateforce
 if "%1"=="docker" goto docker
 if "%1"=="docker-test" goto dockertest
 if "%1"=="docker-down" goto dockerdown
@@ -59,6 +60,11 @@ goto end
 :migratedown
 echo Running migrations down...
 migrate -database "postgres://%DB_USER%:%DB_PASSWORD%@%DB_HOST%:%DB_PORT%/%DB_NAME%?sslmode=disable" -path src/database/migrations down
+goto end
+
+:migrateforce
+echo Running migrations with force...
+migrate -database "postgres://%DB_USER%:%DB_PASSWORD%@%DB_HOST%:%DB_PORT%/%DB_NAME%?sslmode=disable" -path src/database/migrations force %2
 goto end
 
 :docker
